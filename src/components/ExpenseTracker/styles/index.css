@@ -1,0 +1,17 @@
+.expense-tracker-table {
+  padding: 1.5rem;
+}
+
+th {
+    font-size: 2rem !important;
+}
+
+tr,
+td,
+p {
+  font-size: 1.8rem !important;
+}
+
+th {
+    font-weight: 800 !important;
+}

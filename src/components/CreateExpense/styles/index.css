@@ -1,0 +1,25 @@
+.create-expense-card {
+  height: fit-content;
+  background-color: #D9CAB3 !important;
+}
+
+.create-expense-head {
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: #90323D;
+  margin-bottom: 3rem;
+}
+
+.create-expense-head > h3 {
+  color: aliceblue;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.text-field {
+  width: 100%;
+}
+
+.create-expense-card button {
+  font-size: 1.5rem;
+}

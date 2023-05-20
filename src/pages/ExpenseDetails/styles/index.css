@@ -1,0 +1,25 @@
+.expense-details-container {
+  margin-top: 2rem;
+}
+
+.expense-details-box {
+  background-color: #bf9aca;
+  height: fit-content;
+  box-shadow: 0px 4px 8px #13262f;
+  border-radius: 1rem;
+}
+
+.expense-details-title {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1rem;
+  border-bottom: 2px dashed #13262f;
+}
+
+.dashboard-title h2 {
+  color: #13262f;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+}

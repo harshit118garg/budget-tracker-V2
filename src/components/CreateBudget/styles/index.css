@@ -1,0 +1,25 @@
+.create-budget-card {
+  height: fit-content;
+  background-color: #A6EBC9 !important;
+}
+
+.create-budget-head {
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: #ff6700;
+  margin-bottom: 3rem;
+}
+
+.create-budget-head > h3 {
+  color: aliceblue;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.text-field {
+  width: 100%;
+}
+
+.create-budget-card button {
+  font-size: 1.5rem;
+}

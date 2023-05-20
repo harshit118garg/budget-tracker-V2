@@ -1,0 +1,39 @@
+.App {
+  font-size: 3rem;
+}
+
+.Toastify__toast-container {
+  font-size: 1.5rem;
+}
+
+.head-text {
+  color: #34403a;
+}
+
+.head-sub-text {
+  color: indigo;
+}
+
+.highlighted-text {
+  font-weight: 800;
+  color: #f90093;
+}
+
+.dashed-border {
+  border: 2px dashed #393424;
+}
+
+.dotted-border {
+  border: 3px dotted #393424;
+}
+
+.back-btn {
+  color: #fff !important;
+  background-color: #000 !important;
+  transition: all 0.25s ease-in-out !important;
+}
+
+.back-btn:hover {
+  background-color: #fff !important;
+  color: #000 !important;
+}

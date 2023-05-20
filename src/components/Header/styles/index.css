@@ -1,0 +1,29 @@
+.header {
+  background-color: #3f51b5 !important;
+}
+
+.header-toolbar {
+  display: flex;
+  justify-content: space-around;
+}
+
+.label {
+  justify-content: center;
+  align-items: center;
+}
+
+.chip-label {
+  font-size: 2rem;
+}
+
+.logoutBtn {
+  font-size: 1.5rem !important;
+  color: #eaf0ce;
+  background-color: #ff6663;
+  transition: all 0.3s ease-in-out;
+}
+
+.logoutBtn:hover {
+  color: #0b3954;
+  background-color: #e0ff4f;
+}
