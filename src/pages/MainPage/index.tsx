@@ -1,24 +1,31 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import mainPage from "../../assets/main-page.svg";
 import { useExpenseContext } from "../../context/ExpenseContext";
-import "./styles/index.css";
 import { notificationContainer } from "../../utils/notification";
+import "./styles/index.css";
+import { wait } from "../../utils";
 
 const MainPage = () => {
   const [userName, setUserName] = useState("");
-  const { setUserNameValue } = useExpenseContext();
+  const { setUserNameValue, isLoggedIn } = useExpenseContext();
+  const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(event.target.value);
   };
 
-  const handleOnClick = () => {
-    setUserNameValue(userName);
-    setUserName("");
-    notificationContainer({ action: "success", userName, theme: "dark" });
-    redirect("/createBudget");
+  const handleOnClick = async () => {
+    if (userName) {
+      await wait();
+      setUserNameValue(userName);
+      setUserName("");
+      notificationContainer({ action: "success", userName, theme: "dark" });
+      navigate("/createBudget");
+    } else {
+      notificationContainer({ action: "error", theme: "light" });
+    }
   };
 
   return (
@@ -28,48 +35,62 @@ const MainPage = () => {
       className="main-page"
     >
       <div className="left">
-        <Typography variant="h2" component="h3" className="head-text">
-          Take Control of your <span className="highlighted-text">Money</span>
-        </Typography>
-        <Typography variant="h3" component="h5" className="head-sub-text">
-          Do not save what is left after spending, <br />
-          but spend what is left after saving.
-        </Typography>
-        <Box
-          component="form"
-          sx={{
-            "& > :not(style)": { m: 1, width: "25ch" },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <Stack direction="column" spacing={2}>
-            <TextField
-              id="standard-basic"
-              label="Enter Your Name"
-              variant="outlined"
-              color="secondary"
-              required
-              value={userName}
-              onChange={handleChange}
+        <Stack direction="column" spacing={2}>
+          <Typography variant="h2" component="h3" className="head-text">
+            Take Control of your <span className="highlighted-text">Money</span>
+          </Typography>
+          <Typography variant="h3" component="h5" className="head-sub-text">
+            Do not save what is left after spending, <br />
+            but spend what is left after saving.
+          </Typography>
+          {!isLoggedIn ? (
+            <Box
+              component="form"
               sx={{
-                "& .MuiFormLabel-root": {
-                  fontSize: "1.5rem",
-                },
-                "& .MuiInputBase-input": {
-                  fontSize: "1.8rem",
-                },
+                "& > :not(style)": { m: 1, width: "25ch" },
               }}
-            />
-            <Button
-              variant="contained"
-              color="warning"
-              onClick={() => handleOnClick()}
+              noValidate
+              autoComplete="off"
             >
-              Create Account
-            </Button>
-          </Stack>
-        </Box>
+              <Stack direction="column" spacing={2}>
+                <TextField
+                  id="standard-basic"
+                  label="Enter Your Name"
+                  variant="outlined"
+                  color="secondary"
+                  required
+                  value={userName}
+                  onChange={handleChange}
+                  sx={{
+                    "& .MuiFormLabel-root": {
+                      fontSize: "1.5rem",
+                    },
+                    "& .MuiInputBase-input": {
+                      fontSize: "1.8rem",
+                    },
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  color="warning"
+                  onClick={() => handleOnClick()}
+                >
+                  Create Account
+                </Button>
+              </Stack>
+            </Box>
+          ) : (
+            <Stack direction="column">
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => navigate("/createBudget")}
+              >
+                Create Budget
+              </Button>
+            </Stack>
+          )}
+        </Stack>
       </div>
       <div className="right">
         <img src={mainPage} alt="main-page" />

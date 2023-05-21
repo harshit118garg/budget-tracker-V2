@@ -9,13 +9,18 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import headerImg from "../../assets/header-img.svg";
 import "./styles/index.css";
 import { useExpenseContext } from "../../context/ExpenseContext";
 
 const Header = () => {
   const { userName, deleteUserName } = useExpenseContext();
+  const navigate = useNavigate();
+  const handleLogOutBtnClick = () => {
+    deleteUserName();
+    navigate("/");
+  };
 
   return (
     <StyledEngineProvider injectFirst>
@@ -35,7 +40,11 @@ const Header = () => {
                   sx={{ width: 56, height: 56 }}
                   variant="square"
                 />
-                <Chip label="Expense Tracker" color="error" className="chip-label" />
+                <Chip
+                  label="Expense Tracker"
+                  color="error"
+                  className="chip-label"
+                />
               </Stack>
             </Link>
           </IconButton>
@@ -51,7 +60,7 @@ const Header = () => {
               <Button
                 className="logoutBtn"
                 variant="contained"
-                onClick={() => deleteUserName()}
+                onClick={() => handleLogOutBtnClick()}
               >
                 LogOut
               </Button>

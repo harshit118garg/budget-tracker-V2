@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { useState, createContext, useContext } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorgae";
 import {
   BudgetsInfoProperties,
@@ -14,6 +14,7 @@ export function useExpenseContext() {
 
 export function ExpenseContextProvider({ children }: ExpenseContextProperties) {
   const [userName, setUserName] = useLocalStorage<string>("userName", "");
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [budgetInfo, setBudgetInfo] = useLocalStorage<BudgetsInfoProperties[]>(
     "budgets",
     []
@@ -24,10 +25,12 @@ export function ExpenseContextProvider({ children }: ExpenseContextProperties) {
 
   const setUserNameValue = (value: string) => {
     setUserName(value);
+    setIsLoggedIn(true);
   };
 
   const deleteUserName = () => {
     setUserName("");
+    setIsLoggedIn(false);
   };
 
   return (
@@ -35,6 +38,7 @@ export function ExpenseContextProvider({ children }: ExpenseContextProperties) {
       value={{
         userName,
         setUserNameValue,
+        isLoggedIn,
         budgetInfo,
         expenseInfo,
         deleteUserName,
