@@ -5,7 +5,6 @@ import mainPage from "../../assets/main-page.svg";
 import { useExpenseContext } from "../../context/ExpenseContext";
 import { notificationContainer } from "../../utils/notification";
 import "./styles/index.css";
-import { wait } from "../../utils";
 
 const MainPage = () => {
   const [userName, setUserName] = useState("");
@@ -16,13 +15,11 @@ const MainPage = () => {
     setUserName(event.target.value);
   };
 
-  const handleOnClick = async () => {
+  const handleOnClick = () => {
     if (userName) {
-      await wait();
       setUserNameValue(userName);
       setUserName("");
       notificationContainer({ action: "success", userName, theme: "dark" });
-      navigate("/createBudget");
     } else {
       notificationContainer({ action: "error", theme: "light" });
     }

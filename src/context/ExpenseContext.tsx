@@ -14,7 +14,9 @@ export function useExpenseContext() {
 
 export function ExpenseContextProvider({ children }: ExpenseContextProperties) {
   const [userName, setUserName] = useLocalStorage<string>("userName", "");
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
+    userName !== "" || userName !== null
+  );
   const [budgetInfo, setBudgetInfo] = useLocalStorage<BudgetsInfoProperties[]>(
     "budgets",
     []
@@ -24,8 +26,21 @@ export function ExpenseContextProvider({ children }: ExpenseContextProperties) {
   >("expenses", []);
 
   const setUserNameValue = (value: string) => {
-    setUserName(value);
     setIsLoggedIn(true);
+    setUserName(value);
+  };
+
+  const handleBudgetInfo = (budget: BudgetsInfoProperties) => {
+    const newBudget = {
+      budgetName: budget.budgetName,
+      budgetAmount: budget.budgetAmount,
+      createdAt: Date.now(),
+      budgetId: crypto.randomUUID(),
+    };
+    const existingBudgets = [...budgetInfo];
+    console.log("newBudget existingBudgets", newBudget, existingBudgets);
+    existingBudgets.push(newBudget);
+    setBudgetInfo(existingBudgets);
   };
 
   const deleteUserName = () => {
@@ -39,6 +54,7 @@ export function ExpenseContextProvider({ children }: ExpenseContextProperties) {
         userName,
         setUserNameValue,
         isLoggedIn,
+        handleBudgetInfo,
         budgetInfo,
         expenseInfo,
         deleteUserName,

@@ -8,9 +8,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import "./styles/index.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useExpenseContext } from "../../context/ExpenseContext";
+import "./styles/index.css";
+import { notificationContainer } from "../../utils/notification";
 
 interface BudgetInfo {
   budgetName: string;
@@ -19,6 +21,7 @@ interface BudgetInfo {
 
 export const CreateBudget = () => {
   const navigate = useNavigate();
+  const { handleBudgetInfo } = useExpenseContext();
   const [budgetInfo, setbudgetInfo] = useState<BudgetInfo>({
     budgetName: "",
     budgetAmount: 0,
@@ -30,8 +33,17 @@ export const CreateBudget = () => {
   };
 
   const handleClick = () => {
-    console.log("budgetInfo", budgetInfo);
-    // navigate("/dashboard");
+    if (budgetInfo.budgetName !== "") {
+      handleBudgetInfo(budgetInfo);
+      notificationContainer({ action: "info", theme: "dark" });
+      setbudgetInfo({
+        budgetName: "",
+        budgetAmount: 0,
+      });
+      navigate("/dashboard");
+    } else {
+      notificationContainer({ action: "error", theme: "light" });
+    }
   };
 
   return (

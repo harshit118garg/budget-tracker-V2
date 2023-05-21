@@ -15,7 +15,7 @@ import "./styles/index.css";
 import { useExpenseContext } from "../../context/ExpenseContext";
 
 const Header = () => {
-  const { userName, deleteUserName } = useExpenseContext();
+  const { userName, deleteUserName, isLoggedIn } = useExpenseContext();
   const navigate = useNavigate();
   const handleLogOutBtnClick = () => {
     deleteUserName();
@@ -48,7 +48,7 @@ const Header = () => {
               </Stack>
             </Link>
           </IconButton>
-          {userName && (
+          {isLoggedIn && (
             <>
               <Typography
                 variant="h3"

@@ -16,6 +16,13 @@ export const notificationContainer = (payload: notificationPayload) => {
       });
       break;
 
+    case "info":
+      toast.success(`you have created a budget`, {
+        autoClose: 2500,
+        theme: theme,
+      });
+      break;
+
     case "error":
       toast.error(`you have some problem in creating your account`, {
         autoClose: 2500,

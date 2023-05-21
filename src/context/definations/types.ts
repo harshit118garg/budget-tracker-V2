@@ -5,7 +5,7 @@ export interface ExpenseContextProperties {
 export interface BudgetsInfoProperties {
   budgetName: string;
   budgetAmount: number;
-  createdAt: string;
+  createdAt: number;
   budgetId: string;
 }
 

@@ -1,16 +1,13 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 import "./styles/index.css";
 import { CreateBudget } from "../../components/CreateBudget";
+import PageHeader from "../../components/PageHeader";
 
 const BudgetPage = () => {
   return (
     <Container className="budgetpage-container">
       <Box className="budgetpage-box">
-        <div className="budgetpage-title">
-          <Typography variant="h3" component="h2">
-            Welcome Harshit
-          </Typography>
-        </div>
+        <PageHeader />
         <Stack direction="column">
           <div className="budgetpage-head">
             <Typography variant="h3" component="h2" className="head-text">
