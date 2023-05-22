@@ -12,7 +12,7 @@ export interface BudgetsInfoProperties {
 export interface ExpenseInfoProperties {
   expenseName: string;
   expenseAmount: number;
-  createdAt: string;
-  budgetId: string;
+  createdAt: number;
+  associatedBudgetId: string;
   expenseId: string;
 }

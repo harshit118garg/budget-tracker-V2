@@ -5,8 +5,8 @@ import PageHeader from "../../components/PageHeader";
 
 const BudgetPage = () => {
   return (
-    <Container className="budgetpage-container">
-      <Box className="budgetpage-box">
+    <Container className="page-container">
+      <Box className="page-box">
         <PageHeader />
         <Stack direction="column">
           <div className="budgetpage-head">

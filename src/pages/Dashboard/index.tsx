@@ -1,20 +1,21 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
+import "../../App.css";
 import { BudgetTracker } from "../../components/BudgetTracker";
 import { CreateBudget } from "../../components/CreateBudget";
 import { CreateExpense } from "../../components/CreateExpense";
 import { ExpenseTracker } from "../../components/ExpenseTracker";
+import PageHeader from "../../components/PageHeader";
 import "./styles/index.css";
+import { useExpenseContext } from "../../context/ExpenseContext";
 
 const DashBoard = () => {
+  const { expenseInfo } = useExpenseContext();
+
   return (
-    <Container className="dashboard-container">
-      <Box className="dashboard-box">
-        <Box className="dashboard-add-expenditure">
-          <div className="dashboard-title">
-            <Typography variant="h3" component="h2">
-              Welcome Harshit
-            </Typography>
-          </div>
+    <Container className="page-container">
+      <Box className="page-box">
+        <PageHeader />
+        <div className="dashboard-add-expenditure">
           <Grid container rowSpacing={2} columnSpacing={3} sx={{ padding: 2 }}>
             <Grid item xs={12} sm={12} md={6} lg={6}>
               <CreateBudget />
@@ -23,9 +24,9 @@ const DashBoard = () => {
               <CreateExpense />
             </Grid>
           </Grid>
-        </Box>
+        </div>
         <Box className="dashboard-budget">
-          <div className="dashboard-title">
+          <div className="page-title">
             <Typography variant="h3" component="h2">
               Existing Budgets
             </Typography>
@@ -36,14 +37,16 @@ const DashBoard = () => {
             </Grid>
           </Grid>
         </Box>
-        <Box className="dashboard-expenses">
-          <div className="dashboard-title">
-            <Typography variant="h3" component="h2">
-              Existing Expenses
-            </Typography>
-          </div>
-          <ExpenseTracker />
-        </Box>
+        {expenseInfo && expenseInfo.length > 0 && (
+          <Box className="dashboard-expenses">
+            <div className="page-title">
+              <Typography variant="h3" component="h2">
+                Existing Expenses
+              </Typography>
+            </div>
+            <ExpenseTracker />
+          </Box>
+        )}
       </Box>
     </Container>
   );

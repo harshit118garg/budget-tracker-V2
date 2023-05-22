@@ -1,27 +1,3 @@
-.budgetpage-container {
-  margin-top: 2rem;
-}
-
-.budgetpage-box {
-  background-color: #ff6663;
-  height: fit-content;
-  box-shadow: 0px 4px 8px #13262f;
-  border-radius: 1rem;
-}
-
-.budgetpage-title {
-  padding: 1rem;
-  border-bottom: 2px dashed #13262f;
-}
-
-.budgetpage-title h2 {
-  color: #13262f;
-  font-weight: 800;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-align: center;
-}
-
 .budgetpage-head {
   padding: 0.5rem;
   margin-top: 1rem;

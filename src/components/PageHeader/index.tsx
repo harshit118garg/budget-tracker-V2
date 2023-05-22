@@ -18,8 +18,8 @@ const PageHeader = () => {
   }));
 
   return (
-    <Stack className="page-header">
-      <div className="budgetpage-title">
+    <Stack>
+      <div className="page-title">
         <Typography variant="h3" component="h2">
           Welcome {userName}
         </Typography>

@@ -8,7 +8,7 @@ import "./styles/index.css";
 
 const MainPage = () => {
   const [userName, setUserName] = useState("");
-  const { setUserNameValue, isLoggedIn } = useExpenseContext();
+  const { setUserNameValue, isLoggedIn, budgetInfo } = useExpenseContext();
   const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,13 +78,23 @@ const MainPage = () => {
             </Box>
           ) : (
             <Stack direction="column">
-              <Button
-                variant="contained"
-                color="error"
-                onClick={() => navigate("/createBudget")}
-              >
-                Create Budget
-              </Button>
+              {budgetInfo.length > 0 ? (
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={() => navigate("/dashboard")}
+                >
+                  Go to DashBoard
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={() => navigate("/createBudget")}
+                >
+                  Create Budget
+                </Button>
+              )}
             </Stack>
           )}
         </Stack>

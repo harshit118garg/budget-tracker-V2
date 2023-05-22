@@ -1,28 +1,5 @@
-.dashboard-container {
-  margin-top: 2rem;
-}
-
-.dashboard-box {
-  background-color: #ff6663;
-  height: fit-content;
-  box-shadow: 0px 4px 8px #13262f;
-  border-radius: 1rem;
-}
-
-.dashboard-title {
-  padding: 1rem;
-  border-bottom: 2px dashed #13262f;
-}
-
-.dashboard-title h2 {
-  color: #13262f;
-  font-weight: 800;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-align: center;
-}
-
 .dashboard-add-expenditure {
+  margin-top: 3rem;
   background-color: #FBFFB9;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;

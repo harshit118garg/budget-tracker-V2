@@ -37,3 +37,29 @@
   background-color: #fff !important;
   color: #000 !important;
 }
+
+/* pages common css */
+
+.page-container {
+  margin-top: 2rem;
+}
+
+.page-box {
+  background-color: #ff6663;
+  height: fit-content;
+  box-shadow: 0px 4px 8px #13262f;
+  border-radius: 1rem;
+}
+
+.page-title {
+  padding: 1rem;
+  border-bottom: 2px dashed #13262f;
+}
+
+.page-title h2 {
+  color: #13262f;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+}
