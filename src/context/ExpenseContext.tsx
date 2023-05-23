@@ -57,6 +57,8 @@ export function ExpenseContextProvider({ children }: ExpenseContextProperties) {
 
   const deleteUserName = () => {
     setUserName("");
+    setBudgetInfo([]);
+    setExpenseInfo([]);
     setIsLoggedIn(false);
   };
 

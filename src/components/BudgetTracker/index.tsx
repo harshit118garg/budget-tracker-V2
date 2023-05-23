@@ -12,12 +12,29 @@ import LinearProgress, {
 } from "@mui/material/LinearProgress";
 import { theme } from "../../theme/theme";
 import { formatCurrency } from "../../utils";
+import { useExpenseContext } from "../../context/ExpenseContext";
+import {
+  BudgetsInfoProperties,
+  ExpenseInfoProperties,
+} from "../../context/definations/types";
 
-export const BudgetTracker = () => {
-  const spentValue = 50;
-  const budgetValue = 300;
-  const remainingValue = budgetValue - spentValue;
-  const progressBarValue = (spentValue / budgetValue) * 100;
+interface BudgetTrackerProperties {
+  budget: BudgetsInfoProperties;
+}
+
+export const BudgetTracker = ({ budget }: BudgetTrackerProperties) => {
+  const { expenseInfo } = useExpenseContext();
+
+  const spentValue = expenseInfo.reduce(
+    (acc: number, expense: ExpenseInfoProperties) => {
+      if (expense.associatedBudgetId !== budget.budgetId) return acc;
+      return (acc += expense.expenseAmount);
+    },
+    0
+  );
+  const budgetAmount = budget.budgetAmount;
+  const remainingValue = budgetAmount - spentValue;
+  const progressBarValue = (spentValue / budgetAmount) * 100;
 
   const BorderLinearProgress = styled(LinearProgress)(() => ({
     height: 10,
@@ -47,7 +64,7 @@ export const BudgetTracker = () => {
             sx={{ bgcolor: "#5B1865", color: "#fff" }}
             gutterBottom
           >
-            Food
+            {budget.budgetName.toLocaleUpperCase()}
           </Typography>
           <Typography
             variant="h5"
@@ -55,7 +72,7 @@ export const BudgetTracker = () => {
             sx={{ bgcolor: "#5D576B", color: "#fff" }}
             gutterBottom
           >
-            {formatCurrency(budgetValue)}
+            {formatCurrency(budgetAmount)}
           </Typography>
         </div>
         <div className="middle">
