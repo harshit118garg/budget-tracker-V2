@@ -27,7 +27,7 @@ function App() {
                 <Route element={<ProtectedRoute />}>
                   <Route path="createBudget" element={<BudgetPage />} />
                   <Route path="dashboard" element={<DashBoard />} />
-                  <Route path="budget/:id" element={<ExpenseDetails />} />
+                  <Route path="dashboard/budget/:id" element={<ExpenseDetails />} />
                 </Route>
               </Routes>
               <ToastContainer />

@@ -7,3 +7,6 @@ export const formatCurrency = (amount: number) => {
     currency: "INR",
   });
 };
+
+export const formatDateToLocaleString = (date: number) =>
+  new Date(date).toLocaleDateString();

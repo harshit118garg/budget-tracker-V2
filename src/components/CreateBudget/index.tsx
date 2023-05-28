@@ -35,7 +35,11 @@ export const CreateBudget = () => {
   const handleClick = () => {
     if (budgetInfo.budgetName !== "") {
       handleBudgetInfo(budgetInfo);
-      notificationContainer({ action: "info", theme: "dark" });
+      notificationContainer({
+        action: "info",
+        theme: "colored",
+        text: "You have successfully created a new budget",
+      });
       setbudgetInfo({
         budgetName: "",
         budgetAmount: 0,

@@ -3,11 +3,12 @@ import { Theme, toast } from "react-toastify";
 interface notificationPayload {
   action: string;
   userName?: string;
+  text?: string;
   theme?: Theme | undefined;
 }
 
 export const notificationContainer = (payload: notificationPayload) => {
-  const { action, userName, theme } = payload;
+  const { action, userName, theme, text } = payload;
   switch (action) {
     case "success":
       toast.success(`you have created your account ${userName}`, {
@@ -17,7 +18,7 @@ export const notificationContainer = (payload: notificationPayload) => {
       break;
 
     case "info":
-      toast.success(`you have created a budget`, {
+      toast.success(text, {
         autoClose: 2500,
         theme: theme,
       });

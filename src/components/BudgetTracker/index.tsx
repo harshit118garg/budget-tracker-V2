@@ -6,17 +6,18 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import "./styles/index.css";
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
-import { theme } from "../../theme/theme";
-import { formatCurrency } from "../../utils";
 import { useExpenseContext } from "../../context/ExpenseContext";
 import {
   BudgetsInfoProperties,
   ExpenseInfoProperties,
 } from "../../context/definations/types";
+import { theme } from "../../theme/theme";
+import { formatCurrency } from "../../utils";
+import "./styles/index.css";
+import { Link } from "react-router-dom";
 
 interface BudgetTrackerProperties {
   budget: BudgetsInfoProperties;
@@ -101,14 +102,16 @@ export const BudgetTracker = ({ budget }: BudgetTrackerProperties) => {
         </div>
       </CardContent>
       <CardActions>
-        <Button
-          fullWidth
-          variant="contained"
-          color="warning"
-          sx={{ fontSize: 12 }}
-        >
-          View Details
-        </Button>
+        <Link to={`budget/${budget.budgetId}`}>
+          <Button
+            fullWidth
+            variant="contained"
+            color="warning"
+            sx={{ fontSize: 12 }}
+          >
+            View Details
+          </Button>
+        </Link>
       </CardActions>
     </Card>
   );

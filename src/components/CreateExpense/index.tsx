@@ -58,7 +58,7 @@ export const CreateExpense = () => {
             ? budgetInfo[0].budgetId
             : expenseInfo.associatedBudgetId,
       });
-      notificationContainer({ action: "info", theme: "dark" });
+      notificationContainer({ action: "info", theme: "colored", text: "You have successfully created a new expense" });
       setExpenseInfo({
         expenseName: "",
         expenseAmount: 0,

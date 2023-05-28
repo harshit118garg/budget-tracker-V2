@@ -11,8 +11,20 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./styles/index.css";
+import {
+  BudgetsInfoProperties,
+  ExpenseInfoProperties,
+} from "../../context/definations/types";
+import { formatDateToLocaleString } from "../../utils";
+import { useExpenseContext } from "../../context/ExpenseContext";
 
-export const ExpenseTracker = () => {
+interface ExpenseTrackerProperties {
+  expenses: ExpenseInfoProperties[];
+}
+
+export const ExpenseTracker = ({ expenses }: ExpenseTrackerProperties) => {
+  const { budgetInfo, deleteExpense } = useExpenseContext();
+
   return (
     <div className="expense-tracker-table">
       <TableContainer component={Paper}>
@@ -31,19 +43,42 @@ export const ExpenseTracker = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell>{"tea"}</TableCell>
-              <TableCell align="center">{20}</TableCell>
-              <TableCell align="center">{"18-05-2023"}</TableCell>
-              <TableCell align="center">
-                <Chip component={"p"} label="Food" color="info" />
-              </TableCell>
-              <TableCell align="center">
-                <Button>
-                  <DeleteIcon sx={{ fontSize: 25, color: "red" }} />
-                </Button>
-              </TableCell>
-            </TableRow>
+            {expenses.map((expense: ExpenseInfoProperties) => {
+              const associatedBudget =
+                budgetInfo &&
+                budgetInfo.length > 0 &&
+                budgetInfo.filter(
+                  (budget: BudgetsInfoProperties) =>
+                    budget.budgetId === expense.associatedBudgetId
+                );
+
+              return (
+                <TableRow key={expense.expenseId}>
+                  <TableCell>
+                    {expense.expenseName.toLocaleUpperCase()}
+                  </TableCell>
+                  <TableCell align="center">{expense.expenseAmount}</TableCell>
+                  <TableCell align="center">
+                    {formatDateToLocaleString(expense.createdAt)}
+                  </TableCell>
+                  <TableCell align="center">
+                    <Chip
+                      component={"p"}
+                      label={associatedBudget[0].budgetName.toLocaleUpperCase()}
+                      color="info"
+                    />
+                  </TableCell>
+                  <TableCell align="center">
+                    <Button>
+                      <DeleteIcon
+                        sx={{ fontSize: 30, color: "red" }}
+                        onClick={() => deleteExpense(expense.expenseId)}
+                      />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>

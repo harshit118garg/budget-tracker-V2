@@ -56,7 +56,7 @@ const DashBoard = () => {
                 Existing Expenses
               </Typography>
             </div>
-            <ExpenseTracker />
+            <ExpenseTracker expenses={expenseInfo} />
           </Box>
         )}
       </Box>

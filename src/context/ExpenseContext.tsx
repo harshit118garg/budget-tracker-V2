@@ -55,6 +55,12 @@ export function ExpenseContextProvider({ children }: ExpenseContextProperties) {
     setExpenseInfo(existingExpenses);
   };
 
+  const deleteExpense = (EId: string) => {
+    setExpenseInfo((prevState) =>
+      prevState.filter((expense) => expense.expenseId !== EId)
+    );
+  };
+
   const deleteUserName = () => {
     setUserName("");
     setBudgetInfo([]);
@@ -73,6 +79,7 @@ export function ExpenseContextProvider({ children }: ExpenseContextProperties) {
         budgetInfo,
         expenseInfo,
         deleteUserName,
+        deleteExpense,
       }}
     >
       {children}
