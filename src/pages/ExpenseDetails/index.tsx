@@ -5,7 +5,10 @@ import { ExpenseTracker } from "../../components/ExpenseTracker";
 import "./styles/index.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useExpenseContext } from "../../context/ExpenseContext";
-import { BudgetsInfoProperties } from "../../context/definations/types";
+import {
+  BudgetsInfoProperties,
+  ExpenseInfoProperties,
+} from "../../context/definations/types";
 
 const ExpenseDetails = () => {
   const { id } = useParams();
@@ -16,6 +19,10 @@ const ExpenseDetails = () => {
   const budget = budgetInfo.filter(
     (budget: BudgetsInfoProperties) => budget.budgetId === id
   )[0];
+
+  const associatedBudgetExpenses = expenseInfo.filter(
+    (expense: ExpenseInfoProperties) => expense.associatedBudgetId === id
+  );
 
   return (
     <Container className="expense-details-container">
@@ -36,14 +43,14 @@ const ExpenseDetails = () => {
         </Box>
         <Grid container rowSpacing={2} columnSpacing={3} sx={{ padding: 2 }}>
           <Grid item xs={12} sm={12} md={6} lg={6}>
-            <BudgetTracker budget={budget} />
+            <BudgetTracker budget={budget} showBudgetDeleteBtn={false} />
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6}>
             <CreateExpense />
           </Grid>
         </Grid>
         <Box>
-          <ExpenseTracker expenses={[]} />
+          <ExpenseTracker expenses={associatedBudgetExpenses} showBudgetCol={false} />
         </Box>
       </Box>
     </Container>

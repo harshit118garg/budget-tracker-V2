@@ -15,14 +15,19 @@ import {
   BudgetsInfoProperties,
   ExpenseInfoProperties,
 } from "../../context/definations/types";
+import { Link } from "react-router-dom";
 import { formatDateToLocaleString } from "../../utils";
 import { useExpenseContext } from "../../context/ExpenseContext";
 
 interface ExpenseTrackerProperties {
   expenses: ExpenseInfoProperties[];
+  showBudgetCol: boolean;
 }
 
-export const ExpenseTracker = ({ expenses }: ExpenseTrackerProperties) => {
+export const ExpenseTracker = ({
+  expenses,
+  showBudgetCol,
+}: ExpenseTrackerProperties) => {
   const { budgetInfo, deleteExpense } = useExpenseContext();
 
   return (
@@ -38,7 +43,7 @@ export const ExpenseTracker = ({ expenses }: ExpenseTrackerProperties) => {
               <TableCell>Expense Name</TableCell>
               <TableCell align="center">Amount</TableCell>
               <TableCell align="center">Date</TableCell>
-              <TableCell align="center">Budget</TableCell>
+              {showBudgetCol && <TableCell align="center">Budget</TableCell>}
               <TableCell align="center">Delete Expense</TableCell>
             </TableRow>
           </TableHead>
@@ -61,13 +66,17 @@ export const ExpenseTracker = ({ expenses }: ExpenseTrackerProperties) => {
                   <TableCell align="center">
                     {formatDateToLocaleString(expense.createdAt)}
                   </TableCell>
-                  <TableCell align="center">
-                    <Chip
-                      component={"p"}
-                      label={associatedBudget[0].budgetName.toLocaleUpperCase()}
-                      color="info"
-                    />
-                  </TableCell>
+                  {showBudgetCol && (
+                    <TableCell align="center">
+                      <Link to={`budget/${expense.associatedBudgetId}`}>
+                        <Chip
+                          component={"p"}
+                          label={associatedBudget[0].budgetName.toLocaleUpperCase()}
+                          color="info"
+                        />
+                      </Link>
+                    </TableCell>
+                  )}
                   <TableCell align="center">
                     <Button>
                       <DeleteIcon

@@ -42,7 +42,7 @@ const DashBoard = () => {
               {budgetInfo.map((budget: BudgetsInfoProperties) => {
                 return (
                   <Grid key={budget.budgetId} item xs={12} sm={6} md={4} lg={4}>
-                    <BudgetTracker budget={budget} />
+                    <BudgetTracker budget={budget} showBudgetDeleteBtn={true} />
                   </Grid>
                 );
               })}
@@ -56,7 +56,7 @@ const DashBoard = () => {
                 Existing Expenses
               </Typography>
             </div>
-            <ExpenseTracker expenses={expenseInfo} />
+            <ExpenseTracker expenses={expenseInfo} showBudgetCol={true} />
           </Box>
         )}
       </Box>

@@ -21,9 +21,13 @@ import { Link } from "react-router-dom";
 
 interface BudgetTrackerProperties {
   budget: BudgetsInfoProperties;
+  showBudgetDeleteBtn: boolean;
 }
 
-export const BudgetTracker = ({ budget }: BudgetTrackerProperties) => {
+export const BudgetTracker = ({
+  budget,
+  showBudgetDeleteBtn,
+}: BudgetTrackerProperties) => {
   const { expenseInfo } = useExpenseContext();
 
   const spentValue = expenseInfo.reduce(
@@ -102,16 +106,27 @@ export const BudgetTracker = ({ budget }: BudgetTrackerProperties) => {
         </div>
       </CardContent>
       <CardActions>
-        <Link to={`budget/${budget.budgetId}`}>
+        {showBudgetDeleteBtn ? (
+          <Link to={`budget/${budget.budgetId}`}>
+            <Button
+              fullWidth
+              variant="contained"
+              color="warning"
+              sx={{ fontSize: 12 }}
+            >
+              View Details
+            </Button>
+          </Link>
+        ) : (
           <Button
             fullWidth
             variant="contained"
             color="warning"
             sx={{ fontSize: 12 }}
           >
-            View Details
+            Delete Budget
           </Button>
-        </Link>
+        )}
       </CardActions>
     </Card>
   );
