@@ -46,7 +46,7 @@ const ExpenseDetails = () => {
             <BudgetTracker budget={budget} showBudgetDeleteBtn={false} />
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6}>
-            <CreateExpense />
+            <CreateExpense budgets={[budget]} />
           </Grid>
         </Grid>
         <Box>

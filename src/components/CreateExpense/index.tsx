@@ -25,13 +25,17 @@ interface ExpenseInfo {
   associatedBudgetId: string;
 }
 
-export const CreateExpense = () => {
+interface CreateExpenseProperties {
+  budgets: BudgetsInfoProperties[];
+}
+
+export const CreateExpense = ({ budgets }: CreateExpenseProperties) => {
   const [expenseInfo, setExpenseInfo] = useState<ExpenseInfo>({
     expenseName: "",
     expenseAmount: 0,
     associatedBudgetId: "",
   });
-  const { budgetInfo, handleExpenseInfo } = useExpenseContext();
+  const { handleExpenseInfo } = useExpenseContext();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -54,11 +58,15 @@ export const CreateExpense = () => {
         expenseName: expenseInfo.expenseName,
         expenseAmount: expenseInfo.expenseAmount,
         associatedBudgetId:
-          budgetInfo.length === 1
-            ? budgetInfo[0].budgetId
+          budgets.length === 1
+            ? budgets[0].budgetId
             : expenseInfo.associatedBudgetId,
       });
-      notificationContainer({ action: "info", theme: "colored", text: "You have successfully created a new expense" });
+      notificationContainer({
+        action: "info",
+        theme: "colored",
+        text: "You have successfully created a new expense",
+      });
       setExpenseInfo({
         expenseName: "",
         expenseAmount: 0,
@@ -79,8 +87,8 @@ export const CreateExpense = () => {
             color="text.secondary"
             gutterBottom
           >
-            {budgetInfo.length === 1
-              ? `Create New ${budgetInfo[0].budgetName} expense`
+            {budgets.length === 1
+              ? `Create New ${budgets[0].budgetName} expense`
               : "Create New expense"}
           </Typography>
         </Box>
@@ -127,7 +135,7 @@ export const CreateExpense = () => {
               }}
             />
           </Grid>
-          {budgetInfo.length !== 1 && (
+          {budgets.length !== 1 && (
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <FormControl fullWidth>
                 <InputLabel sx={{ fontSize: 14 }}>Budget</InputLabel>
@@ -143,7 +151,7 @@ export const CreateExpense = () => {
                   onChange={handleBudgetChange}
                   required
                 >
-                  {budgetInfo.map((budget: BudgetsInfoProperties) => {
+                  {budgets.map((budget: BudgetsInfoProperties) => {
                     return (
                       <MenuItem
                         key={budget.budgetId}
