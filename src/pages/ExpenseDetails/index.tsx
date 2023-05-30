@@ -49,9 +49,14 @@ const ExpenseDetails = () => {
             <CreateExpense budgets={[budget]} />
           </Grid>
         </Grid>
-        <Box>
-          <ExpenseTracker expenses={associatedBudgetExpenses} showBudgetCol={false} />
-        </Box>
+        {associatedBudgetExpenses.length > 0 && (
+          <Box>
+            <ExpenseTracker
+              expenses={associatedBudgetExpenses}
+              showBudgetCol={false}
+            />
+          </Box>
+        )}
       </Box>
     </Container>
   );

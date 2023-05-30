@@ -17,7 +17,7 @@ import {
 import { theme } from "../../theme/theme";
 import { formatCurrency } from "../../utils";
 import "./styles/index.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface BudgetTrackerProperties {
   budget: BudgetsInfoProperties;
@@ -28,7 +28,8 @@ export const BudgetTracker = ({
   budget,
   showBudgetDeleteBtn,
 }: BudgetTrackerProperties) => {
-  const { expenseInfo } = useExpenseContext();
+  const { expenseInfo, deleteBudget } = useExpenseContext();
+  const navigate = useNavigate();
 
   const spentValue = expenseInfo.reduce(
     (acc: number, expense: ExpenseInfoProperties) => {
@@ -58,6 +59,11 @@ export const BudgetTracker = ({
           : "#E27396",
     },
   }));
+
+  const handleDeleteBudget = () => {
+    deleteBudget(budget.budgetId);
+    navigate("/dashboard");
+  };
 
   return (
     <Card className="dotted-border">
@@ -123,6 +129,7 @@ export const BudgetTracker = ({
             variant="contained"
             color="warning"
             sx={{ fontSize: 12 }}
+            onClick={handleDeleteBudget}
           >
             Delete Budget
           </Button>

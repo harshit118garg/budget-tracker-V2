@@ -55,6 +55,22 @@ export function ExpenseContextProvider({ children }: ExpenseContextProperties) {
     setExpenseInfo(existingExpenses);
   };
 
+  const deleteBudget = (BId: string) => {
+    const budgetDeleted = budgetInfo.filter(
+      (budget) => budget.budgetId === BId
+    )[0];
+    const existingBudgets = [...budgetInfo];
+    const remainingBudgets = existingBudgets.filter(
+      (budget) => budget.budgetId !== budgetDeleted.budgetId
+    );
+    const existingExpenses = [...expenseInfo];
+    const remainingExpenses = existingExpenses.filter(
+      (expense) => expense.associatedBudgetId !== budgetDeleted.budgetId
+    );
+    setBudgetInfo(remainingBudgets);
+    setExpenseInfo(remainingExpenses);
+  };
+
   const deleteExpense = (EId: string) => {
     setExpenseInfo((prevState) =>
       prevState.filter((expense) => expense.expenseId !== EId)
@@ -79,6 +95,7 @@ export function ExpenseContextProvider({ children }: ExpenseContextProperties) {
         budgetInfo,
         expenseInfo,
         deleteUserName,
+        deleteBudget,
         deleteExpense,
       }}
     >
