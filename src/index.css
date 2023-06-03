@@ -34,3 +34,19 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+
+
+th {
+  font-size: 2rem !important;
+}
+
+tr,
+td,
+p {
+font-size: 1.8rem !important;
+}
+
+th {
+  font-weight: 800 !important;
+}
+

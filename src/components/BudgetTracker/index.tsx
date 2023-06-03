@@ -3,6 +3,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  Modal,
   Typography,
   styled,
 } from "@mui/material";
@@ -18,6 +19,9 @@ import { theme } from "../../theme/theme";
 import { formatCurrency } from "../../utils";
 import "./styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import React from "react";
+import EditAmount from "../EditAmount";
 
 interface BudgetTrackerProperties {
   budget: BudgetsInfoProperties;
@@ -28,6 +32,7 @@ export const BudgetTracker = ({
   budget,
   showBudgetDeleteBtn,
 }: BudgetTrackerProperties) => {
+  const [openBudgetModal, setopenBudgetModal] = useState(false);
   const { expenseInfo, deleteBudget } = useExpenseContext();
   const navigate = useNavigate();
 
@@ -66,75 +71,93 @@ export const BudgetTracker = ({
   };
 
   return (
-    <Card className="dotted-border">
-      <CardContent>
-        <div className="top">
-          <Typography
-            variant="h5"
-            component="h4"
-            sx={{ bgcolor: "#5B1865", color: "#fff" }}
-            gutterBottom
-          >
-            {budget.budgetName.toLocaleUpperCase()}
-          </Typography>
-          <Typography
-            variant="h5"
-            component="h4"
-            sx={{ bgcolor: "#5D576B", color: "#fff" }}
-            gutterBottom
-          >
-            {formatCurrency(budgetAmount)}
-          </Typography>
-        </div>
-        <div className="middle">
-          <BorderLinearProgress
-            variant="determinate"
-            value={progressBarValue}
-          />
-        </div>
-        <div className="bottom">
-          <Typography
-            variant="h5"
-            component="h4"
-            sx={{ bgcolor: "#5B1865", color: "#fff" }}
-            gutterBottom
-          >
-            {formatCurrency(spentValue)} Spent
-          </Typography>
-          <Typography
-            variant="h5"
-            component="h4"
-            sx={{ bgcolor: "#5D576B", color: "#fff" }}
-            gutterBottom
-          >
-            {formatCurrency(remainingValue)} Remaining
-          </Typography>
-        </div>
-      </CardContent>
-      <CardActions>
-        {showBudgetDeleteBtn ? (
-          <Link to={`budget/${budget.budgetId}`}>
-            <Button
-              fullWidth
-              variant="contained"
-              color="warning"
-              sx={{ fontSize: 12 }}
+    <React.Fragment>
+      <Card className="dotted-border">
+        <CardContent>
+          <div className="top">
+            <Typography
+              variant="h5"
+              component="h4"
+              sx={{ bgcolor: "#5B1865", color: "#fff" }}
+              gutterBottom
             >
-              View Details
-            </Button>
-          </Link>
-        ) : (
-          <Button
-            fullWidth
-            variant="contained"
-            color="warning"
-            sx={{ fontSize: 12 }}
-            onClick={handleDeleteBudget}
-          >
-            Delete Budget
-          </Button>
-        )}
-      </CardActions>
-    </Card>
+              {budget.budgetName.toLocaleUpperCase()}
+            </Typography>
+            <Typography
+              variant="h5"
+              component="h4"
+              sx={{ bgcolor: "#5D576B", color: "#fff" }}
+              gutterBottom
+            >
+              {formatCurrency(budgetAmount)}
+            </Typography>
+          </div>
+          <div className="middle">
+            <BorderLinearProgress
+              variant="determinate"
+              value={progressBarValue}
+            />
+          </div>
+          <div className="bottom">
+            <Typography
+              variant="h5"
+              component="h4"
+              sx={{ bgcolor: "#5B1865", color: "#fff" }}
+              gutterBottom
+            >
+              {formatCurrency(spentValue)} Spent
+            </Typography>
+            <Typography
+              variant="h5"
+              component="h4"
+              sx={{ bgcolor: "#5D576B", color: "#fff" }}
+              gutterBottom
+            >
+              {formatCurrency(remainingValue)} Remaining
+            </Typography>
+          </div>
+        </CardContent>
+        <CardActions>
+          {showBudgetDeleteBtn ? (
+            <Link to={`budget/${budget.budgetId}`}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="warning"
+                sx={{ fontSize: 12 }}
+              >
+                View Details
+              </Button>
+            </Link>
+          ) : (
+            <>
+              <Button
+                fullWidth
+                variant="contained"
+                color="warning"
+                sx={{ fontSize: 12 }}
+                onClick={() => setopenBudgetModal(true)}
+              >
+                Edit Budget
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                color="warning"
+                sx={{ fontSize: 12 }}
+                onClick={handleDeleteBudget}
+              >
+                Delete Budget
+              </Button>
+            </>
+          )}
+        </CardActions>
+      </Card>
+      <Modal open={openBudgetModal} onClose={() => setopenBudgetModal(false)}>
+        <div>
+          <EditAmount Info={budget} />
+        </div>
+      </Modal>
+    </React.Fragment>
   );
 };
