@@ -12,6 +12,8 @@
 
 .bottom {
   margin: 2rem 0 0;
+  display: flex;
+  gap: 1rem;
 }
 
 .bottom > * {

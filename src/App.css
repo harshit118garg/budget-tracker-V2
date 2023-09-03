@@ -47,6 +47,7 @@
 .page-box {
   background-color: #ff6663;
   height: fit-content;
+  margin-bottom: 2rem;
   box-shadow: 0px 4px 8px #13262f;
   border-radius: 1rem;
 }

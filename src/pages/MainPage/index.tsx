@@ -29,6 +29,7 @@ const MainPage = () => {
     <Stack
       direction={{ xs: "column", md: "row", sm: "column", xl: "row" }}
       spacing={{ xs: 1, sm: 2, md: 3, xl: 4 }}
+      sx={{ paddingX: 12 }}
       className="main-page"
     >
       <div className="left">
@@ -43,9 +44,6 @@ const MainPage = () => {
           {!isLoggedIn ? (
             <Box
               component="form"
-              sx={{
-                "& > :not(style)": { m: 1, width: "25ch" },
-              }}
               noValidate
               autoComplete="off"
             >

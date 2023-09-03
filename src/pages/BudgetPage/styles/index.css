@@ -9,6 +9,14 @@
   align-items: center;
 }
 
+.head-text {
+  text-align: center;
+}
+
+.head-sub-text {
+  text-align: center;
+}
+
 .budgetpage-createbudget {
   padding: 1rem;
 }

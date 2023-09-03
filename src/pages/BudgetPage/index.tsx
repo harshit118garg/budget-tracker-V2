@@ -14,7 +14,6 @@ const BudgetPage = () => {
               Take Control of your{" "}
               <span className="highlighted-text">Money</span>
             </Typography>
-            <br />
             <Typography variant="h3" component="h5" className="head-sub-text">
               Do not save what is left after spending, but spend what is left
               after saving.
