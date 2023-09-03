@@ -62,7 +62,7 @@ const ExpenseTrackerTable = ({
             onClose={() => setOpenExpenseModal(false)}
           >
             <div>
-              <EditAmount Info={expense} />
+              <EditAmount Info={expense} setModal={setOpenExpenseModal} />
             </div>
           </Modal>
         </TableCell>

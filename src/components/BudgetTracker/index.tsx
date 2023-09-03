@@ -155,7 +155,7 @@ export const BudgetTracker = ({
       </Card>
       <Modal open={openBudgetModal} onClose={() => setopenBudgetModal(false)}>
         <div>
-          <EditAmount Info={budget} />
+          <EditAmount Info={budget} setModal={setopenBudgetModal} />
         </div>
       </Modal>
     </React.Fragment>
