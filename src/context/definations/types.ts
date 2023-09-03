@@ -16,3 +16,9 @@ export interface ExpenseInfoProperties {
   associatedBudgetId: string;
   expenseId: string;
 }
+
+export interface UpdateObjectProperties {
+  _amount: number;
+  _tariff: string;
+  _tariffId: string;
+}

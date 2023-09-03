@@ -1,6 +1,4 @@
 import {
-  Button,
-  Chip,
   Paper,
   Table,
   TableBody,
@@ -9,15 +7,14 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import "./styles/index.css";
+import React from "react";
+import { useExpenseContext } from "../../context/ExpenseContext";
 import {
   BudgetsInfoProperties,
   ExpenseInfoProperties,
 } from "../../context/definations/types";
-import { Link } from "react-router-dom";
-import { formatDateToLocaleString } from "../../utils";
-import { useExpenseContext } from "../../context/ExpenseContext";
+import ExpenseTrackerTable from "../ExpenseTrackerTable";
+import "./styles/index.css";
 
 interface ExpenseTrackerProperties {
   expenses: ExpenseInfoProperties[];
@@ -28,69 +25,53 @@ export const ExpenseTracker = ({
   expenses,
   showBudgetCol,
 }: ExpenseTrackerProperties) => {
-  const { budgetInfo, deleteExpense } = useExpenseContext();
+  const { budgetInfo } = useExpenseContext();
 
   return (
-    <div className="expense-tracker-table">
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }}>
-          <TableHead
-            sx={{
-              bgcolor: "#A2D6F9",
-            }}
-          >
-            <TableRow>
-              <TableCell>Expense Name</TableCell>
-              <TableCell align="center">Amount</TableCell>
-              <TableCell align="center">Date</TableCell>
-              {showBudgetCol && <TableCell align="center">Budget</TableCell>}
-              <TableCell align="center">Delete Expense</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {expenses.map((expense: ExpenseInfoProperties) => {
-              const associatedBudget =
-                budgetInfo &&
-                budgetInfo.length > 0 &&
-                budgetInfo.filter(
-                  (budget: BudgetsInfoProperties) =>
-                    budget.budgetId === expense.associatedBudgetId
-                );
+    <React.Fragment>
+      <div className="expense-tracker-table">
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }}>
+            <TableHead
+              sx={{
+                bgcolor: "#A2D6F9",
+              }}
+            >
+              <TableRow>
+                <TableCell>Expense Name</TableCell>
+                <TableCell align="center">Amount</TableCell>
+                <TableCell align="center">Date</TableCell>
+                {showBudgetCol ? (
+                  <TableCell align="center">Budget</TableCell>
+                ) : (
+                  <TableCell align="center">Edit Expense</TableCell>
+                )}
+                <TableCell align="center">Delete Expense</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {expenses.map((expense: ExpenseInfoProperties) => {
+                const associatedBudget =
+                  budgetInfo &&
+                  budgetInfo.length > 0 &&
+                  budgetInfo.filter(
+                    (budget: BudgetsInfoProperties) =>
+                      budget.budgetId === expense.associatedBudgetId
+                  );
 
-              return (
-                <TableRow key={expense.expenseId}>
-                  <TableCell>
-                    {expense.expenseName.toLocaleUpperCase()}
-                  </TableCell>
-                  <TableCell align="center">{expense.expenseAmount}</TableCell>
-                  <TableCell align="center">
-                    {formatDateToLocaleString(expense.createdAt)}
-                  </TableCell>
-                  {showBudgetCol && (
-                    <TableCell align="center">
-                      <Link to={`budget/${expense.associatedBudgetId}`}>
-                        <Chip
-                          component={"p"}
-                          label={associatedBudget[0].budgetName.toLocaleUpperCase()}
-                          color="info"
-                        />
-                      </Link>
-                    </TableCell>
-                  )}
-                  <TableCell align="center">
-                    <Button>
-                      <DeleteIcon
-                        sx={{ fontSize: 30, color: "red" }}
-                        onClick={() => deleteExpense(expense.expenseId)}
-                      />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+                return (
+                  <ExpenseTrackerTable
+                    key={expense.expenseId}
+                    expense={expense}
+                    associatedBudget={associatedBudget}
+                    showBudgetCol={showBudgetCol}
+                  />
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+    </React.Fragment>
   );
 };

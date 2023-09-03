@@ -4,6 +4,7 @@ import {
   BudgetsInfoProperties,
   ExpenseContextProperties,
   ExpenseInfoProperties,
+  UpdateObjectProperties,
 } from "./definations/types";
 
 const expenseContext = createContext({} as any);
@@ -77,6 +78,25 @@ export function ExpenseContextProvider({ children }: ExpenseContextProperties) {
     );
   };
 
+  const updateAmount = (updateObject: UpdateObjectProperties) => {
+    let { _amount, _tariff, _tariffId } = updateObject;
+    if (_tariff === "Budget") {
+      const selectBudgetToUpdated = budgetInfo.find(
+        (budget) => budget.budgetId === _tariffId
+      );
+      if (selectBudgetToUpdated) {
+        selectBudgetToUpdated.budgetAmount = _amount;
+      }
+    } else if (_tariff === "Expense") {
+      const selectExpenseToUpdated = expenseInfo.find(
+        (expense) => expense.expenseId === _tariffId
+      );
+      if (selectExpenseToUpdated) {
+        selectExpenseToUpdated.expenseAmount = _amount;
+      }
+    }
+  };
+
   const deleteUserName = () => {
     setUserName("");
     setBudgetInfo([]);
@@ -92,6 +112,7 @@ export function ExpenseContextProvider({ children }: ExpenseContextProperties) {
         isLoggedIn,
         handleBudgetInfo,
         handleExpenseInfo,
+        updateAmount,
         budgetInfo,
         expenseInfo,
         deleteUserName,
