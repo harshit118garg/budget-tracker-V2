@@ -3,19 +3,24 @@ import {
   Avatar,
   Button,
   Chip,
-  Stack,
   IconButton,
+  Stack,
   StyledEngineProvider,
   Toolbar,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import headerImg from "../../assets/header-img.svg";
-import "./styles/index.css";
 import { useExpenseContext } from "../../context/ExpenseContext";
+import "./styles/index.css";
 
 const Header = () => {
-  const { userName, deleteUserName } = useExpenseContext();
+  const { userName, deleteUserName, isLoggedIn } = useExpenseContext();
+  const navigate = useNavigate();
+  const handleLogOutBtnClick = () => {
+    deleteUserName();
+    navigate("/");
+  };
 
   return (
     <StyledEngineProvider injectFirst>
@@ -32,26 +37,28 @@ const Header = () => {
                 <Avatar
                   alt="Remy Sharp"
                   src={headerImg}
-                  sx={{ width: 56, height: 56 }}
+                  className="avatar"
                   variant="square"
                 />
-                <Chip label="Expense Tracker" color="error" className="chip-label" />
+                <Chip
+                  label="Expense Tracker"
+                  color="error"
+                  size="small"
+                  className="chip-label"
+                />
               </Stack>
             </Link>
           </IconButton>
-          {userName && (
+          {isLoggedIn && (
             <>
-              <Typography
-                variant="h3"
-                component="h2"
-                sx={{ color: "#EAF0CE", textTransform: "uppercase" }}
-              >
+              <Typography variant="h3" component="h2" className="userName">
                 {userName}
               </Typography>
               <Button
+                size="small"
                 className="logoutBtn"
                 variant="contained"
-                onClick={() => deleteUserName()}
+                onClick={() => handleLogOutBtnClick()}
               >
                 LogOut
               </Button>

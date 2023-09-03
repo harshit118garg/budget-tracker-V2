@@ -16,4 +16,11 @@ export const theme = createTheme({
       fontSize: "2rem",
     },
   },
+  components: {
+    MuiStack: {
+      defaultProps: {
+        useFlexGap: true,
+      },
+    },
+  },
 });

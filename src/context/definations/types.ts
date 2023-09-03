@@ -5,14 +5,20 @@ export interface ExpenseContextProperties {
 export interface BudgetsInfoProperties {
   budgetName: string;
   budgetAmount: number;
-  createdAt: string;
+  createdAt: number;
   budgetId: string;
 }
 
 export interface ExpenseInfoProperties {
   expenseName: string;
   expenseAmount: number;
-  createdAt: string;
-  budgetId: string;
+  createdAt: number;
+  associatedBudgetId: string;
   expenseId: string;
+}
+
+export interface UpdateObjectProperties {
+  _amount: number;
+  _tariff: string;
+  _tariffId: string;
 }
