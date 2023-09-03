@@ -81,19 +81,23 @@ export function ExpenseContextProvider({ children }: ExpenseContextProperties) {
   const updateAmount = (updateObject: UpdateObjectProperties) => {
     let { _amount, _tariff, _tariffId } = updateObject;
     if (_tariff === "Budget") {
-      const selectBudgetToUpdated = budgetInfo.find(
-        (budget) => budget.budgetId === _tariffId
-      );
-      if (selectBudgetToUpdated) {
-        selectBudgetToUpdated.budgetAmount = _amount;
-      }
+      const existingBudgets = [...budgetInfo];
+      const updatedBudgetsInfo = existingBudgets.map((budget) => {
+        if (budget.budgetId === _tariffId) {
+          return { ...budget, budgetAmount: _amount };
+        }
+        return budget;
+      });
+      setBudgetInfo(updatedBudgetsInfo);
     } else if (_tariff === "Expense") {
-      const selectExpenseToUpdated = expenseInfo.find(
-        (expense) => expense.expenseId === _tariffId
-      );
-      if (selectExpenseToUpdated) {
-        selectExpenseToUpdated.expenseAmount = _amount;
-      }
+      const existingExpenses = [...expenseInfo];
+      const updatedExpenseInfo = existingExpenses.map((expense) => {
+        if (expense.expenseId === _tariffId) {
+          return { ...expense, expenseAmount: _amount };
+        }
+        return expense;
+      });
+      setExpenseInfo(updatedExpenseInfo);
     }
   };
 
